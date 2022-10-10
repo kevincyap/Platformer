@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     public float jumpAllowance;
 
     float lastJump = 0f;
-    public float xSpeed;
 
     //Layering
     public Transform feet;
@@ -29,7 +28,7 @@ public class PlayerController : MonoBehaviour
     float facing = 1f;
     float lastGrab = 0f;
     float grabDelay = 0.2f;
-    float grabLaunchProp = 0.5f;
+    float grabLaunchProp = 0.7f;
 
     void Start()
     {
@@ -60,8 +59,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump")) {
                 grabbingWall = false;
-                xSpeed = -facing * maxSpeed * grabLaunchProp;
-                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                rb.velocity = new Vector2(-facing * maxSpeed * grabLaunchProp, jumpSpeed);
                 lastGrab = Time.time;
             } else {
                 rb.velocity = new Vector2(0f, 0f);
@@ -88,16 +86,16 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetAxisRaw("Horizontal") == 0) {
             if (grounded) {
-                xSpeed = Mathf.MoveTowards(xSpeed, 0, deaccelSpeed * Time.deltaTime);
+                rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deaccelSpeed * Time.deltaTime), rb.velocity.y);
             } else {
-                xSpeed = Mathf.MoveTowards(xSpeed, 0, deaccelAir * Time.deltaTime);
+                rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deaccelAir * Time.deltaTime), rb.velocity.y);
             }
         } else if (!grabbingWall){
-            if (Input.GetAxisRaw("Horizontal") != Mathf.Sign(xSpeed)) {
-                xSpeed = 0;
+            if (Input.GetAxisRaw("Horizontal") != Mathf.Sign(rb.velocity.x)) {
+                rb.velocity = new Vector2(0, rb.velocity.y);
             }
-            xSpeed = Mathf.MoveTowards(xSpeed, Input.GetAxisRaw("Horizontal") * maxSpeed, accelSpeed * Time.deltaTime);
+            rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal") * accelSpeed, 0));
         }
-        rb.position += new Vector2(xSpeed * Time.deltaTime, 0f);
+        rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
     }
 }
