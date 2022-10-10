@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
         wallGrab = transform.Find("WallGrab");
         groundLayer = LayerMask.GetMask("Ground");
         wallLayer = LayerMask.GetMask("Wall");
-        xSpeed = 0f;
 
         gravScale = rb.gravityScale;
     }
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
         
 
         //Wall hanging
-        facing = rb.velocity.x + xSpeed != 0 ? Mathf.Sign(rb.velocity.x + xSpeed) : facing;
+        facing = rb.velocity.x != 0 ? Mathf.Sign(rb.velocity.x) : facing;
         if (!grabbingWall && againstWall && Time.time - lastGrab > grabDelay) {
             grabbingWall = true;
             rb.gravityScale = 0f;
