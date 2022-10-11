@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public float jumpAllowance;
 
     float lastJump = 0f;
+    float coyoteTime = 0.1f;
+    float lastGrounded = 0f;
 
     //Layering
     public Transform feet;
@@ -68,17 +70,20 @@ public class PlayerController : MonoBehaviour
         }
 
         //Jumping
-        if ((Input.GetButtonDown("Jump") || (lastJump != 0f && Time.time - lastJump < jumpAllowance)))
+        if ((Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
         {
-            if (grounded) {
+            if (grounded || CheckCoyoteTime()) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 lastJump = 0f;
+                lastGrounded = 0f;
             } else if (Input.GetButtonDown("Jump")){
                 lastJump = Time.time;
             }
         }
 
-
+        if (grounded) {
+            lastGrounded = Time.time;
+        }
         //Player horizontal movement
         if (Time.time - lastGrab < grabDelay) {
             
@@ -97,4 +102,12 @@ public class PlayerController : MonoBehaviour
         }
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
     }
+
+    bool CheckJumpTolerance() {
+        return (lastJump != 0f && Time.time - lastJump < jumpAllowance);
+    }
+    bool CheckCoyoteTime() {
+        return (Time.time - lastGrounded < coyoteTime);
+    }
+
 }
