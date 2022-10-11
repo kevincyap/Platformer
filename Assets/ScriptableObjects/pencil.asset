@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0485961a1ee86c94493c8f732eef2853, type: 3}
   m_Name: pencil
   m_EditorClassIdentifier: 
-  ID: 
-  itemName: 
-  description: 
-  sprite: {fileID: 0}
+  ID: pencil
+  itemName: Pencil
+  description: For writing. (This is an example item).
+  sprite: {fileID: 21300000, guid: 354fc0ba63bd25b488e9bc8e7f5d1601, type: 3}
   audioClip: {fileID: 0}
