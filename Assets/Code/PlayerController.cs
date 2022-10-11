@@ -6,8 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
 
+    [Header("Features")]
+    [SerializeField] private bool EnableDashing;
+    [SerializeField] private bool EnableWallClimb;
+    [SerializeField] private bool EnableDoubleJump;
+
     //Movement
     //Jumping
+    [Header("Basic Movement")]
     public float maxSpeed;
     public float accelSpeed;
     public float deaccelSpeed;
@@ -18,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private float currJumps;
 
     //Dashing
+    [Header("Dashing")]
     private bool canDash = true;
     private bool isDashing;
     public float dashingPower = 24f;
@@ -30,6 +37,7 @@ public class PlayerController : MonoBehaviour
     float coyoteTime = 0.1f;
     float lastGrounded = 0f;
 
+    [Header("Wall Grabbing")]
     //Layering
     public Transform feet;
     public Transform wallGrab;
@@ -37,12 +45,15 @@ public class PlayerController : MonoBehaviour
     LayerMask wallLayer;
 
     //Wall Jumping
+    [Header("Wall Jumping")]
     bool grabbingWall = false;
     float gravScale;
     float facing = 1f;
     float lastGrab = 0f;
     float grabDelay = 0.2f;
     float grabLaunchProp = 0.7f;
+
+    
 
     void Start()
     {
@@ -68,23 +79,26 @@ public class PlayerController : MonoBehaviour
 
         //Wall hanging
         facing = rb.velocity.x != 0 ? Mathf.Sign(rb.velocity.x) : facing;
-        if (!grabbingWall && againstWall && Time.time - lastGrab > grabDelay) {
-            grabbingWall = true;
-            rb.gravityScale = 0f;
-            rb.velocity = new Vector2(0f, 0f);
-        }
-        if (grabbingWall)
-        {
-            if (Input.GetButtonDown("Jump")) {
-                grabbingWall = false;
-                rb.velocity = new Vector2(-facing * maxSpeed * grabLaunchProp, jumpSpeed);
-                lastGrab = Time.time;
-            } else {
+        if (EnableWallClimb) {
+            if (!grabbingWall && againstWall && Time.time - lastGrab > grabDelay) {
+                grabbingWall = true;
+                rb.gravityScale = 0f;
                 rb.velocity = new Vector2(0f, 0f);
             }
-        } else {
-            rb.gravityScale = gravScale;
+            if (grabbingWall)
+            {
+                if (Input.GetButtonDown("Jump")) {
+                    grabbingWall = false;
+                    rb.velocity = new Vector2(-facing * maxSpeed * grabLaunchProp, jumpSpeed);
+                    lastGrab = Time.time;
+                } else {
+                    rb.velocity = new Vector2(0f, 0f);
+                }
+            } else {
+                rb.gravityScale = gravScale;
+            }
         }
+        
 
         //Jumping
         if ((Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
@@ -93,7 +107,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 lastJump = 0f;
                 lastGrounded = 0f;
-                currJumps = jumps - 1;
+                currJumps = EnableDoubleJump ? jumps - 1 : 0;
             } else if (currJumps > 0) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 lastJump = 0f;
@@ -104,7 +118,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //dashing
-        if (Input.GetButtonDown("Dash") && canDash)
+        if (EnableDashing && Input.GetButtonDown("Dash") && canDash)
         {
             StartCoroutine(Dash());
         }
