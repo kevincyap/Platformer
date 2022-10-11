@@ -8,4 +8,8 @@ public class Item : ScriptableObject
     public string description;
     public Sprite sprite;
     public AudioClip audioClip;
+
+    public virtual void Use() {
+        Debug.Log("Using " + itemName);
+    }
 }
