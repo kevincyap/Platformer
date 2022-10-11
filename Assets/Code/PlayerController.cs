@@ -24,8 +24,11 @@ public class PlayerController : MonoBehaviour
     public float dashingTime = 0.2f;
     public float dashingCD = 1f;
     [SerializeField] private TrailRenderer tr;
+    TrailRenderer walkTr;
 
     float lastJump = 0f;
+    float coyoteTime = 0.1f;
+    float lastGrounded = 0f;
 
     //Layering
     public Transform feet;
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         feet = transform.Find("Feet");
         wallGrab = transform.Find("WallGrab");
+        walkTr = transform.Find("WalkTrail").GetComponent<TrailRenderer>();
         groundLayer = LayerMask.GetMask("Ground");
         wallLayer = LayerMask.GetMask("Wall");
 
@@ -83,11 +87,12 @@ public class PlayerController : MonoBehaviour
         }
 
         //Jumping
-        if ((Input.GetButtonDown("Jump") || (lastJump != 0f && Time.time - lastJump < jumpAllowance)))
+        if ((Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
         {
-            if (grounded) {
+            if (grounded || CheckCoyoteTime()) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                 lastJump = 0f;
+                lastGrounded = 0f;
                 currJumps = jumps - 1;
             } else if (currJumps > 0) {
                 rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
@@ -104,7 +109,9 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-
+        if (grounded) {
+            lastGrounded = Time.time;
+        }
         //Player horizontal movement
         if (Time.time - lastGrab < grabDelay) {
             
@@ -126,6 +133,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        walkTr.emitting = false;
         canDash = false;
         isDashing = true;
         float oGravity = rb.gravityScale;
@@ -140,8 +148,17 @@ public class PlayerController : MonoBehaviour
         tr.emitting = false;
         rb.gravityScale = oGravity;
         maxSpeed = oSpeed;
+        walkTr.emitting = true;
         isDashing = false;
         yield return new WaitForSeconds(dashingCD);
         canDash = true;
     }
+
+    bool CheckJumpTolerance() {
+        return (lastJump != 0f && Time.time - lastJump < jumpAllowance);
+    }
+    bool CheckCoyoteTime() {
+        return (Time.time - lastGrounded < coyoteTime);
+    }
+
 }
