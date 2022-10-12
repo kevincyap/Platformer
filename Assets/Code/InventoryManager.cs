@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using UnityEngine.EventSystems;
+
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
@@ -16,6 +18,10 @@ public class InventoryManager : MonoBehaviour
     Transform InventoryPanelTrans;
     public GameObject InventorySlotPrefab;
 
+    public GameObject InventoryTooltip;
+    TextMeshProUGUI itemHeader;
+    TextMeshProUGUI itemDesc;
+
 
     // Start is called before the first frame update
     void Start() {
@@ -23,6 +29,11 @@ public class InventoryManager : MonoBehaviour
 
         if (InventoryPanel != null) {
             InventoryPanelTrans = InventoryPanel.transform;
+        }
+
+        if (InventoryTooltip != null) {
+            itemHeader = InventoryTooltip.transform.Find("Header").GetComponent<TextMeshProUGUI>();
+            itemDesc = InventoryTooltip.transform.Find("Description").GetComponent<TextMeshProUGUI>();
         }
     }
 
@@ -60,6 +71,13 @@ public class InventoryManager : MonoBehaviour
         ListItems();
     }
 
+    public void DisplayItem(Item item) {
+        itemHeader.SetText(item.itemName);
+        itemDesc.SetText(item.description);
+
+        InventoryTooltip.SetActive(true);
+    }
+
     public void ListItems() {
         foreach (Transform child in InventoryPanelTrans) {
             Destroy(child.gameObject);
@@ -76,12 +94,29 @@ public class InventoryManager : MonoBehaviour
 
             Button button = obj.transform.Find("InventoryButton").GetComponent<Button>();
             button.onClick.AddListener(delegate { UseItem(item); });
+
+            // tooltip handling
+            EventTrigger.Entry eventEnter = new EventTrigger.Entry();
+            eventEnter.eventID = EventTriggerType.PointerEnter;
+            eventEnter.callback.AddListener( delegate { DisplayItem(item);} );
+
+            EventTrigger.Entry eventExit = new EventTrigger.Entry();
+            eventExit.eventID = EventTriggerType.PointerExit;
+            eventExit.callback.AddListener(delegate { InventoryTooltip.SetActive(false); } );
+
+            button.gameObject.AddComponent<EventTrigger>();
+            EventTrigger buttonEvent = button.gameObject.GetComponent<EventTrigger>();
+            buttonEvent.triggers.Add(eventEnter);
+            buttonEvent.triggers.Add(eventExit);
         }
     }
 
     public void SetInventory(bool val) {
         if (val) {
             ListItems();
+        } else {
+            // always close tooltip if inventory closes
+            InventoryTooltip.SetActive(val);
         }
 
         InventoryPanel.SetActive(val);
