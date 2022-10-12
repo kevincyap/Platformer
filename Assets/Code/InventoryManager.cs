@@ -35,6 +35,10 @@ public class InventoryManager : MonoBehaviour
         itemCount[item.ID]++;
 
         Debug.Log("Added " + item.ID + ", curr qty: " + itemCount[item.ID]);
+        
+        if (InventoryPanel.activeSelf) {
+            ListItems();
+        }
     }
 
     public void RemoveItem(Item item) {
