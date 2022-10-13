@@ -69,6 +69,9 @@ public class InventoryManager : MonoBehaviour
 
         // update inventory UI
         ListItems();
+
+        // close tooltip
+        InventoryTooltip.SetActive(false);
     }
 
     public void DisplayItem(Item item) {
