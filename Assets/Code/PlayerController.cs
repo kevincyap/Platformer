@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
 
     [Header("Features")]
-    [SerializeField] private bool EnableDashing;
-    [SerializeField] private bool EnableWallClimb;
-    [SerializeField] private bool EnableDoubleJump;
+    public bool EnableDashing;
+    public bool EnableWallClimb;
+    public bool EnableDoubleJump;
 
     //Movement
     //Jumping
