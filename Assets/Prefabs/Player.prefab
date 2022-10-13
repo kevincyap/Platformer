@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439491702100969797}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 2, y: 1.4178112, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -305,6 +305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155d9d9d4a9eb4e4e9ea009f0afb5f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnableDashing: 0
+  EnableWallClimb: 0
+  EnableDoubleJump: 0
   maxSpeed: 6
   accelSpeed: 3
   deaccelSpeed: 100
