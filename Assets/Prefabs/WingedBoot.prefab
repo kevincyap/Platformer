@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6541007388326068981}
   - component: {fileID: 6541007388326068982}
   - component: {fileID: 6541007388326068983}
+  - component: {fileID: 3574246509233428232}
   m_Layer: 0
   m_Name: WingedBoot
   m_TagString: Untagged
@@ -125,3 +126,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectible: {fileID: 11400000, guid: 5c6bd4ba63ff5ea4b8f0a289051dcbd7, type: 2}
+--- !u!114 &3574246509233428232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6541007388326068976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff0e37b3807df648b8c7e0ba409ae19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 0.1
+  speed: 2
