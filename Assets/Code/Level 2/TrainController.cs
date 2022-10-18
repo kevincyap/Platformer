@@ -29,6 +29,9 @@ public class TrainController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+        if (flashing && transform.position.x - player.transform.position.x < warningOffDistance) {
+            flashing = false;
+        }
         if (moveTime - Time.time < warningOnTime && !moving && !onHold && !flashing && player.transform.position.y < 0) {
             StartCoroutine(FlashWarning());
         }
@@ -60,12 +63,11 @@ public class TrainController : MonoBehaviour
 
     IEnumerator FlashWarning() {
         flashing = true;
-        while (Mathf.Abs(transform.position.x - player.transform.position.x) > warningOffDistance && flashing) {
+        while (flashing) {
             trainWarning.SetActive(true);
             yield return new WaitForSeconds(flashDelay);
             trainWarning.SetActive(false);
             yield return new WaitForSeconds(flashDelay);
         }
-        flashing = false;
     }
 }
