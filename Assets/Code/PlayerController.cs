@@ -53,7 +53,23 @@ public class PlayerController : MonoBehaviour
     float grabDelay = 0.2f;
     float grabLaunchProp = 0.7f;
 
-    
+    bool enable = true;
+
+    void Awake()
+    {
+        GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
+    }
+ 
+    void OnDestroy()
+    {
+        GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+    }
+
+    void OnGameStateChanged(GameState newGameState)
+    {
+        print("Game State Changed to: " + newGameState);
+        enable = newGameState == GameState.Gameplay;
+    }
 
     void Start()
     {
@@ -69,60 +85,68 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isDashing)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            return;
+            GameState state = GameStateManager.Instance.CurrentGameState == GameState.Gameplay ? GameState.Paused : GameState.Gameplay;
+            GameStateManager.Instance.SetState(state);
         }
+
         bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.255f, wallLayer);
         bool grounded = Physics2D.OverlapCircle(feet.position, 0.05f, groundLayer);
-        
 
-        //Wall hanging
-        facing = rb.velocity.x != 0 ? Mathf.Sign(rb.velocity.x) : facing;
-        if (EnableWallClimb) {
-            if (!grabbingWall && againstWall && Time.time - lastGrab > grabDelay) {
-                grabbingWall = true;
-                rb.gravityScale = 0f;
-                rb.velocity = new Vector2(0f, 0f);
-            }
-            if (grabbingWall)
+        if (enable) {
+            if (isDashing)
             {
-                if (Input.GetButtonDown("Jump")) {
-                    grabbingWall = false;
-                    rb.velocity = new Vector2(-facing * maxSpeed * grabLaunchProp, jumpSpeed);
-                    lastGrab = Time.time;
-                } else {
+                return;
+            }
+            
+
+            //Wall hanging
+            facing = rb.velocity.x != 0 ? Mathf.Sign(rb.velocity.x) : facing;
+            if (EnableWallClimb) {
+                if (!grabbingWall && againstWall && Time.time - lastGrab > grabDelay) {
+                    grabbingWall = true;
+                    rb.gravityScale = 0f;
                     rb.velocity = new Vector2(0f, 0f);
                 }
-            } else {
-                rb.gravityScale = gravScale;
+                if (grabbingWall)
+                {
+                    if (Input.GetButtonDown("Jump")) {
+                        grabbingWall = false;
+                        rb.velocity = new Vector2(-facing * maxSpeed * grabLaunchProp, jumpSpeed);
+                        lastGrab = Time.time;
+                    } else {
+                        rb.velocity = new Vector2(0f, 0f);
+                    }
+                } else {
+                    rb.gravityScale = gravScale;
+                }
+            }
+            
+
+            //Jumping
+            if ((Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
+            {
+                if (grounded || CheckCoyoteTime()) {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                    lastJump = 0f;
+                    lastGrounded = 0f;
+                    currJumps = EnableDoubleJump ? jumps - 1 : 0;
+                } else if (currJumps > 0) {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                    lastJump = 0f;
+                    currJumps = currJumps - 1;
+                } else if (Input.GetButtonDown("Jump")) {
+                    lastJump = Time.time;
+                }
+            }
+
+            //dashing
+            if (EnableDashing && Input.GetButtonDown("Dash") && canDash)
+            {
+                StartCoroutine(Dash());
             }
         }
-        
-
-        //Jumping
-        if ((Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
-        {
-            if (grounded || CheckCoyoteTime()) {
-                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-                lastJump = 0f;
-                lastGrounded = 0f;
-                currJumps = EnableDoubleJump ? jumps - 1 : 0;
-            } else if (currJumps > 0) {
-                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-                lastJump = 0f;
-                currJumps = currJumps - 1;
-            } else if (Input.GetButtonDown("Jump")) {
-                lastJump = Time.time;
-            }
-        }
-
-        //dashing
-        if (EnableDashing && Input.GetButtonDown("Dash") && canDash)
-        {
-            StartCoroutine(Dash());
-        }
-
         if (grounded) {
             lastGrounded = Time.time;
         }
@@ -130,13 +154,13 @@ public class PlayerController : MonoBehaviour
         if (Time.time - lastGrab < grabDelay) {
             
         }
-        else if (Input.GetAxisRaw("Horizontal") == 0) {
+        else if (Input.GetAxisRaw("Horizontal") == 0 || !enable) {
             if (grounded) {
                 rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deaccelSpeed * Time.deltaTime), rb.velocity.y);
             } else {
                 rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deaccelAir * Time.deltaTime), rb.velocity.y);
             }
-        } else if (!grabbingWall){
+        } else if (!grabbingWall && enable){
             if (Input.GetAxisRaw("Horizontal") != Mathf.Sign(rb.velocity.x)) {
                 rb.velocity = new Vector2(0, rb.velocity.y);
             }
