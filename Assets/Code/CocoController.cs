@@ -6,6 +6,7 @@ public class CocoController : MonoBehaviour
 {
     Animator anim;
     Transform player;
+    public bool distTriggered = true;
     public int standDistance = 50;
     public int runDistance = 20;
     public int runSpeed = 5;
@@ -26,15 +27,17 @@ public class CocoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int distance = (int)Vector3.Distance(transform.position, player.position);
-        if (distance < runDistance) {
-            StartCoroutine(RunAway());
-        } else if (distance < standDistance && !running) {
-            anim.SetInteger("State", 1);
-            FaceDir(wallRunning ? 1 : -1);
-        } else if (!running){
-            anim.SetInteger("State", 0);
-            FaceDir(wallRunning ? 1 : -1);
+        if (distTriggered) {
+            int distance = (int)Vector3.Distance(transform.position, player.position);
+            if (distance < runDistance) {
+                StartCoroutine(RunAway());
+            } else if (distance < standDistance && !running) {
+                anim.SetInteger("State", 1);
+                FaceDir(wallRunning ? 1 : -1);
+            } else if (!running){
+                anim.SetInteger("State", 0);
+                FaceDir(wallRunning ? 1 : -1);
+            }
         }
 
         if (running) {
@@ -44,6 +47,18 @@ public class CocoController : MonoBehaviour
             } else {
                 transform.position = new Vector3(transform.position.x + runOffset, transform.position.y, transform.position.z);
             }
+        }
+    }
+
+    public void TriggerAction(string action) {
+        if (action == "Run") {
+            StartCoroutine(RunAway());
+        } else if (action == "Stand") {
+            anim.SetInteger("State", 1);
+            FaceDir(wallRunning ? 1 : -1);
+        } else if (action == "Lay") {
+            anim.SetInteger("State", 0);
+            FaceDir(wallRunning ? 1 : -1);
         }
     }
 
