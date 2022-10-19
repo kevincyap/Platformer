@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
             GameStateManager.Instance.SetState(state);
         }
 
-        bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.255f, wallLayer);
+        bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.26f, wallLayer);
         bool grounded = Physics2D.OverlapCircle(feet.position, 0.05f, groundLayer);
 
         if (enable) {
