@@ -9,7 +9,7 @@ public class RestartTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameStateManager.Instance.SetState(GameState.Dead);
         }
     }
 }
