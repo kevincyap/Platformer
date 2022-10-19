@@ -6507,7 +6507,11 @@ PrefabInstance:
       objectReference: {fileID: 147007503}
     - target: {fileID: 4571682390185497254, guid: e36d84ea1fb6a594ab7160fac33a60b5, type: 3}
       propertyPath: distTriggered
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4571682390185497254, guid: e36d84ea1fb6a594ab7160fac33a60b5, type: 3}
+      propertyPath: cocoSafeRoomOffset
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e36d84ea1fb6a594ab7160fac33a60b5, type: 3}
