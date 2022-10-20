@@ -10,7 +10,7 @@ public class CocoController : MonoBehaviour
     public int standDistance = 50;
     public int runDistance = 20;
     public int runSpeed = 5;
-    public float runDelay = 0.5f;
+    float runDelay = 0.1f;
     public float runLength = 3f;
     bool running = false;
     public Transform cocoSafeRoom;

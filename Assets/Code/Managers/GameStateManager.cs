@@ -17,7 +17,7 @@ public class GameStateManager
     }
  
     public GameState CurrentGameState { get; private set; }
- 
+    public string DeathMessage { get; private set; }
     public delegate void GameStateChangeHandler(GameState newGameState);
     public event GameStateChangeHandler OnGameStateChanged;
  
@@ -28,5 +28,11 @@ public class GameStateManager
  
         CurrentGameState = newGameState;
         OnGameStateChanged?.Invoke(newGameState);
+    }
+
+    public void SetStateWithMessage(GameState newGameState, string message)
+    {
+        DeathMessage = message;
+        SetState(newGameState);
     }
 }
