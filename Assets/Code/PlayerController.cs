@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     bool enable = true;
 
+    public float velocityX; 
+
     void Awake()
     {
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        velocityX = rb.velocity.x;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameState state = GameStateManager.Instance.CurrentGameState == GameState.Gameplay ? GameState.Paused : GameState.Gameplay;
