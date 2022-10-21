@@ -305,9 +305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155d9d9d4a9eb4e4e9ea009f0afb5f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnableDashing: 0
-  EnableWallClimb: 0
-  EnableDoubleJump: 0
+  EnableDashing: 1
+  EnableWallClimb: 1
+  EnableDoubleJump: 1
   maxSpeed: 6
   accelSpeed: 3
   deaccelSpeed: 100
