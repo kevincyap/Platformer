@@ -8,6 +8,9 @@ public class AbilityCollectibleController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Player")) {
+            if (InventoryManager.instance != null) {
+                InventoryManager.instance.AddItem(collectible); // for inventory
+            }
             collectible.Use();
             Destroy(gameObject);
         }
