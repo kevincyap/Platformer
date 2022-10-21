@@ -26662,7 +26662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 902543447924990731, guid: 16b03fd269b93294cb8f9fd52871e72b, type: 3}
       propertyPath: accelSpeed
-      value: 3
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 902543447924990731, guid: 16b03fd269b93294cb8f9fd52871e72b, type: 3}
       propertyPath: EnableDashing

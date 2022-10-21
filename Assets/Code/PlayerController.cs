@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxisRaw("Horizontal") != Mathf.Sign(rb.velocity.x)) {
                 rb.velocity = new Vector2(0, rb.velocity.y);
             }
-            rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal") * accelSpeed, 0));
+            rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal") * accelSpeed*Time.deltaTime, 0));
         }
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
     }
