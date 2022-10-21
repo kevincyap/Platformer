@@ -10,6 +10,8 @@ public class CamTriggerL3 : MonoBehaviour
     //public CinemachineVirtualCamera cam;
     GameObject cam;
 
+    public bool deactivateOnExit = true;
+
     void Start() {
         cam = transform.Find("Cam").gameObject;
     }
@@ -22,7 +24,7 @@ public class CamTriggerL3 : MonoBehaviour
     }
     
     void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Player") && deactivateOnExit) {
             Debug.Log("exit triggered");
             cam.SetActive(false);
         }
