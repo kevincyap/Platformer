@@ -23,6 +23,10 @@ public class TruckMoveTrigger : MonoBehaviour
 
     void Update() {
         if (inTrigger) {
+            if (!truck.move) {
+                truck.StartFlashing();
+            }
+
             truck.move = true;
             Debug.Log("in truck trigger");
         }
