@@ -6275,6 +6275,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 902543447924990734, guid: 16b03fd269b93294cb8f9fd52871e72b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13725491
+      objectReference: {fileID: 0}
+    - target: {fileID: 902543447924990734, guid: 16b03fd269b93294cb8f9fd52871e72b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 902543447924990734, guid: 16b03fd269b93294cb8f9fd52871e72b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.050980393
+      objectReference: {fileID: 0}
     - target: {fileID: 902543447924990736, guid: 16b03fd269b93294cb8f9fd52871e72b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -7413,7 +7425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2692441933053272622, guid: abb04dbb771a39140b25f645908357fe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 8.078663
+      value: 10.92297
       objectReference: {fileID: 0}
     - target: {fileID: 2692441933053272622, guid: abb04dbb771a39140b25f645908357fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7421,7 +7433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2692441933053272622, guid: abb04dbb771a39140b25f645908357fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.0275
+      value: -2.639
       objectReference: {fileID: 0}
     - target: {fileID: 2692441933053272622, guid: abb04dbb771a39140b25f645908357fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8714,7 +8726,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.08, y: 0}
+  m_Offset: {x: -2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -8725,7 +8737,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 14.65, y: 8.16}
+  m_Size: {x: 16.36, y: 8.16}
   m_EdgeRadius: 0
 --- !u!1 &2134471967
 GameObject:
@@ -9078,12 +9090,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2692441933053272622, guid: abb04dbb771a39140b25f645908357fe, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 9.877902
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692441933053272622, guid: abb04dbb771a39140b25f645908357fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.4084873
       objectReference: {fileID: 0}
     - target: {fileID: 2692441933053272622, guid: abb04dbb771a39140b25f645908357fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.2986536
+      value: -3.0265
       objectReference: {fileID: 0}
     - target: {fileID: 2692441933053272622, guid: abb04dbb771a39140b25f645908357fe, type: 3}
       propertyPath: m_LocalPosition.z
