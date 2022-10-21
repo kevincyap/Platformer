@@ -35,7 +35,7 @@ public class TruckController : MonoBehaviour
         }
     }
 
-    void Move(float speed = 0.25f) { // moves truck left
+    void Move(float speed = 0.15f) { // moves truck left
         // rb.velocity = new Vector2(-speed, rb.velocity.y); // speed should be 7.5f for normal, 3f for slow
 
         Vector2 newPos = transform.position;
