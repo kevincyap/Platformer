@@ -6,6 +6,7 @@ public class TruckPlatform : MonoBehaviour
 {
     void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.CompareTag("Player")) {
+            Debug.Log("On Platform");
             other.transform.SetParent(transform);
         }
     }

@@ -25,7 +25,7 @@ public class TruckController : MonoBehaviour
             if (transform.position.x > xSlow) {
                 Move();
             } else {
-                Move(3f);
+                Move(0.1f);
             }
         }
 
@@ -35,8 +35,12 @@ public class TruckController : MonoBehaviour
         }
     }
 
-    void Move(float speed = 7.5f) { // moves truck left
-        rb.velocity = new Vector2(-speed, rb.velocity.y);
+    void Move(float speed = 0.15f) { // moves truck left
+        // rb.velocity = new Vector2(-speed, rb.velocity.y); // speed should be 7.5f for normal, 3f for slow
+
+        Vector2 newPos = transform.position;
+        newPos.x -= speed;
+        transform.position = newPos;
     }
 
     void Reset() {
