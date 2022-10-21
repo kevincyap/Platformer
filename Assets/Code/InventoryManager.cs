@@ -13,6 +13,8 @@ public class InventoryManager : MonoBehaviour
     public List<Item> items = new List<Item>();
     public Dictionary<string, int> itemCount = new Dictionary<string, int>();
 
+    public List<AbilityCollectible> collectibles = new List<AbilityCollectible>();
+
 
     public GameObject InventoryPanel;
     Transform InventoryPanelTrans;
@@ -21,6 +23,10 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryTooltip;
     TextMeshProUGUI itemHeader;
     TextMeshProUGUI itemDesc;
+
+    public GameObject CollectiblesPanel;
+    Transform CollectiblesPanelTrans;
+    public GameObject CollectibleSlotPrefab;
 
 
     // Start is called before the first frame update
@@ -35,6 +41,10 @@ public class InventoryManager : MonoBehaviour
             itemHeader = InventoryTooltip.transform.Find("Header").GetComponent<TextMeshProUGUI>();
             itemDesc = InventoryTooltip.transform.Find("Description").GetComponent<TextMeshProUGUI>();
         }
+
+        if (CollectiblesPanel != null) {
+            CollectiblesPanelTrans = CollectiblesPanel.transform;
+        }
     }
 
     public void AddItem(Item item) {
@@ -47,6 +57,14 @@ public class InventoryManager : MonoBehaviour
 
         Debug.Log("Added " + item.ID + ", curr qty: " + itemCount[item.ID]);
         
+        if (InventoryPanel.activeSelf) {
+            ListItems();
+        }
+    }
+
+    public void AddItem(AbilityCollectible collectible) {
+        collectibles.Add(collectible);
+
         if (InventoryPanel.activeSelf) {
             ListItems();
         }
@@ -112,6 +130,24 @@ public class InventoryManager : MonoBehaviour
             buttonEvent.triggers.Add(eventEnter);
             buttonEvent.triggers.Add(eventExit);
         }
+
+        // collectibles list
+        foreach (Transform child in CollectiblesPanelTrans) {
+            Destroy(child.gameObject);
+        }
+
+        foreach (AbilityCollectible collectible in collectibles) {
+            GameObject obj = Instantiate(CollectibleSlotPrefab, CollectiblesPanelTrans);
+            
+            Image collectibleIcon = obj.transform.Find("CollectibleButton/Icon").GetComponent<Image>();
+            collectibleIcon.sprite = collectible.sprite;
+
+            TextMeshProUGUI collectibleName = obj.transform.Find("CollectibleButton/Text/Name").GetComponent<TextMeshProUGUI>();
+            collectibleName.SetText(collectible.itemName);
+
+            TextMeshProUGUI collectibleDesc = obj.transform.Find("CollectibleButton/Text/Description").GetComponent<TextMeshProUGUI>();
+            collectibleDesc.SetText(collectible.description);
+        }
     }
 
     public void SetInventory(bool val) {
@@ -123,6 +159,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         InventoryPanel.SetActive(val);
+        CollectiblesPanel.SetActive(val);
     }
 
     public void ToggleInventory() {
