@@ -19,6 +19,22 @@ public class TrainController : MonoBehaviour
     public float warningOnTime = 3f;
     public GameObject player;
     bool flashing = false;
+
+    void Awake() {
+        GameStateManager.Instance.OnGameStateReset += OnGameStateReset;
+    }
+    void Destroy() {
+        GameStateManager.Instance.OnGameStateReset -= OnGameStateReset;
+    }
+    void OnGameStateReset() {
+        flashing = false;
+        transform.position = new Vector3(xRight, transform.position.y, transform.position.z);
+        moveTime = Time.time + trainDelay;
+        moving = false;
+        if (RespawnPoint.Instance.DefaultSpawn) {
+            onHold = true;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
