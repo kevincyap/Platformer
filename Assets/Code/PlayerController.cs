@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     bool enable = true;
 
+    public float velocityX; 
+
     void Awake()
     {
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -85,13 +87,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        velocityX = rb.velocity.x;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameState state = GameStateManager.Instance.CurrentGameState == GameState.Gameplay ? GameState.Paused : GameState.Gameplay;
             GameStateManager.Instance.SetState(state);
         }
 
-        bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.255f, wallLayer);
+        bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.26f, wallLayer);
         bool grounded = Physics2D.OverlapCircle(feet.position, 0.05f, groundLayer);
 
         if (enable) {

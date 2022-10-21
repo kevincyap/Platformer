@@ -7,7 +7,8 @@ using TMPro;
 public class DeathScreen : MonoBehaviour
 {
     GameObject canvas;
-
+    TextMeshProUGUI message;
+    string defaultMessage = "Coco is now free to terrorize the city. The city burns at his mercy.";
     void Awake()
     {
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -19,11 +20,13 @@ public class DeathScreen : MonoBehaviour
     void Start()
     {
         canvas = transform.Find("Canvas").gameObject;
+        message = transform.Find("Canvas/EndDesc").GetComponent<TextMeshProUGUI>();
     }
     void OnGameStateChanged(GameState newGameState)
     {
         if (newGameState == GameState.Dead)
         {
+            message.text = GameStateManager.Instance.DeathMessage ?? defaultMessage;
             canvas.SetActive(true);
         }
         else {

@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class RestartTrigger : MonoBehaviour
 {
+    public bool DestroyPlayer = false;
+    public string DeathMessage;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            GameStateManager.Instance.SetState(GameState.Dead);
+            if (DestroyPlayer)
+            {
+                other.gameObject.SetActive(false);
+            }
+            GameStateManager.Instance.SetStateWithMessage(GameState.Dead, DeathMessage);
         }
     }
 }
