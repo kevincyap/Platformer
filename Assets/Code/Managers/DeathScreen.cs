@@ -26,7 +26,14 @@ public class DeathScreen : MonoBehaviour
     {
         if (newGameState == GameState.Dead)
         {
-            message.text = GameStateManager.Instance.DeathMessage ?? defaultMessage;
+            if (GameStateManager.Instance.DeathMessage != null)
+            {
+                message.text = GameStateManager.Instance.DeathMessage;
+            }
+            else
+            {
+                message.text = defaultMessage;
+            }
             canvas.SetActive(true);
         }
         else {
@@ -34,8 +41,8 @@ public class DeathScreen : MonoBehaviour
         }
     }
     public void handleRestart() {
-        GameStateManager.Instance.SetState(GameState.Gameplay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameStateManager.Instance.TriggerRestart();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void handleQuit() {
         Application.Quit();

@@ -7,6 +7,15 @@ public class TrainTrigger : MonoBehaviour
     public TrainController train;
     public int delay = 0;
     bool used = false;
+    void Awake() {
+        GameStateManager.Instance.OnGameStateReset += OnGameStateReset;
+    }
+    void Destroy() {
+        GameStateManager.Instance.OnGameStateReset -= OnGameStateReset;
+    }
+    void OnGameStateReset() {
+        used = false;
+    }
     
     void OnTriggerEnter2D(Collider2D other)
     {
