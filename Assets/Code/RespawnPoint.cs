@@ -10,14 +10,6 @@ public class RespawnPoint : MonoBehaviour
     public bool DefaultSpawn = false;
     bool active = false;
 
-    void Awake() {
-        GameStateManager.Instance.OnGameStateReset += OnGameStateReset;
-    }
-
-    void OnDestroy()
-    {
-        GameStateManager.Instance.OnGameStateReset -= OnGameStateReset;
-    }
 
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -28,14 +20,8 @@ public class RespawnPoint : MonoBehaviour
         }
     }
 
-    void OnGameStateReset() {
-        print("Reset");
-        if (Instance == this) {
-            player.transform.Find("WalkTrail").gameObject.SetActive(false);
-            player.transform.position = transform.position;
-            player.transform.Find("WalkTrail").gameObject.SetActive(true);
-            player.SetActive(true);
-        }
+    public Transform GetTransform() {
+        return transform;
     }
 
     protected void SetBowlActive() {
