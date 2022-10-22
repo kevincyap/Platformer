@@ -19,6 +19,10 @@ public class TruckController : MonoBehaviour
     GameObject player;
     public int warningOffDistance = 20;
 
+    // Honk
+    AudioSource audioSource;
+    public AudioClip honkAudio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +30,8 @@ public class TruckController : MonoBehaviour
         initPos = transform.position;
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -43,6 +49,7 @@ public class TruckController : MonoBehaviour
         // stop flashing if truck is close to player
         if (flashing && transform.position.x - player.transform.position.x < warningOffDistance) {
             flashing = false;
+            PlayHonk();
         }
 
         // reset truck to initial position if it is below a certain y
@@ -77,6 +84,13 @@ public class TruckController : MonoBehaviour
             yield return new WaitForSeconds(flashDelay);
             truckWarning.SetActive(false);
             yield return new WaitForSeconds(flashDelay);
+        }
+    }
+
+
+    public void PlayHonk() {
+        if (honkAudio != null) {
+            audioSource.PlayOneShot(honkAudio);
         }
     }
 }
