@@ -18,8 +18,12 @@ public class GameStateManager
  
     public GameState CurrentGameState { get; private set; }
     public string DeathMessage { get; private set; }
+
     public delegate void GameStateChangeHandler(GameState newGameState);
     public event GameStateChangeHandler OnGameStateChanged;
+
+    public delegate void GameStateReset();
+    public event GameStateReset OnGameStateReset;
  
     public void SetState(GameState newGameState)
     {
@@ -35,4 +39,10 @@ public class GameStateManager
         DeathMessage = message;
         SetState(newGameState);
     }
+
+    public void TriggerRestart() {
+        SetState(GameState.Gameplay);
+        OnGameStateReset?.Invoke();
+    }
+
 }

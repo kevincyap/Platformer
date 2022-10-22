@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public float dashingTime = 0.2f;
     public float dashingCD = 1f;
     [SerializeField] private TrailRenderer tr;
-    TrailRenderer walkTr;
+    public TrailRenderer walkTr;
 
     float lastJump = 0f;
     float coyoteTime = 0.1f;
