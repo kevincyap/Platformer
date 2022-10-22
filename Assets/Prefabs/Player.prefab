@@ -283,7 +283,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.25698647, g: 0.7075472, b: 0.3511783, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -305,11 +305,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155d9d9d4a9eb4e4e9ea009f0afb5f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnableDashing: 1
-  EnableWallClimb: 1
-  EnableDoubleJump: 1
+  EnableDashing: 0
+  EnableWallClimb: 0
+  EnableDoubleJump: 0
   maxSpeed: 6
-  accelSpeed: 3
+  accelSpeed: 1500
   deaccelSpeed: 100
   deaccelAir: 15
   jumpSpeed: 12
@@ -319,8 +319,10 @@ MonoBehaviour:
   dashingTime: 0.1
   dashingCD: 1
   tr: {fileID: 8583813388692208297}
+  walkTr: {fileID: 0}
   feet: {fileID: 902543447642828435}
   wallGrab: {fileID: 902543447058207717}
+  velocityX: 0
 --- !u!50 &902543447924990735
 Rigidbody2D:
   serializedVersion: 4
