@@ -9,7 +9,10 @@ public class CamLimiter : CinemachineExtension
     public int xRight;
     public int y;
     public int width;
+
+    public bool forL1 = false;
     // Update is called once per frame
+
     protected override void PostPipelineStageCallback(
         CinemachineVirtualCameraBase vcam,
         CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
@@ -17,8 +20,13 @@ public class CamLimiter : CinemachineExtension
         if (stage == CinemachineCore.Stage.Finalize)
         {
             var pos = state.RawPosition;
-            pos.y = y;
-            pos.x = Mathf.Clamp(pos.x, xLeft + width / 2, xRight - width / 2);
+            if (forL1) {
+                pos.x = xLeft;
+                pos.y = Mathf.Clamp(pos.y, y, y+200);
+            } else {
+                pos.y = y;
+                pos.x = Mathf.Clamp(pos.x, xLeft + width / 2, xRight - width / 2);
+            }
             state.RawPosition = pos;
         }
     }
