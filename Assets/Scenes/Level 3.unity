@@ -2507,7 +2507,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467045641}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000023841858, y: 0, z: -10}
+  m_LocalPosition: {x: 0.00000023841858, y: -0.20000005, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6679,6 +6679,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 902543447924990731, guid: 16b03fd269b93294cb8f9fd52871e72b, type: 3}
+      propertyPath: accelSpeed
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 902543447924990731, guid: 16b03fd269b93294cb8f9fd52871e72b, type: 3}
       propertyPath: EnableDashing
       value: 1
       objectReference: {fileID: 0}
@@ -9642,7 +9646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142781900}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.952042, y: -3.192093, z: -17.639767}
+  m_LocalPosition: {x: -12.952042, y: -3.392093, z: -17.639767}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
