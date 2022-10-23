@@ -488,7 +488,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ae41342a35a61541b6541dc886842fb
+      spriteID: 916af5f767f6823498ba7b8fbccaadb4
       internalID: 200321913
       vertices: []
       indices: 
@@ -509,7 +509,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e9e5f0698ef1d642afdbeaf1060b979
+      spriteID: aa8574ce87bc0b344a0633434eb75bf0
       internalID: -78552769
       vertices: []
       indices: 
@@ -530,7 +530,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9aab98aa73e0f884582220a37bf5389a
+      spriteID: 25a0cf9084fab4340a4e755551fd0c8d
       internalID: -1963168252
       vertices: []
       indices: 
@@ -551,8 +551,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 993e5f42243d92a499af7a5de012f2be
-      internalID: -1095534508
+      spriteID: f89ac864a404d5e44b8dbc61ab81d8c6
+      internalID: 451633655
       vertices: []
       indices: 
       edges: []
@@ -570,7 +570,7 @@ TextureImporter:
     nameFileIdTable:
       Player_11: -83295494
       Player_17: 200321913
-      Player_20: -1095534508
+      Player_20: 451633655
       Player_19: -1963168252
       Player_2: 652154167
       Player_4: 1066067205
