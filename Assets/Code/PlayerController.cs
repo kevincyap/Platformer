@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public float dashingTime = 0.2f;
     public float dashingCD = 1f;
     [SerializeField] private TrailRenderer tr;
-    TrailRenderer walkTr;
+    public TrailRenderer walkTr;
 
     float lastJump = 0f;
     float coyoteTime = 0.1f;
@@ -57,25 +57,46 @@ public class PlayerController : MonoBehaviour
 
     public float velocityX; 
 
+
+    
+    Animator anim;
+
+
     void Awake()
     {
         GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
+        GameStateManager.Instance.OnGameStateReset += OnGameStateReset;
     }
  
     void OnDestroy()
     {
         GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+        GameStateManager.Instance.OnGameStateReset -= OnGameStateReset;
     }
 
     void OnGameStateChanged(GameState newGameState)
     {
-        print("Game State Changed to: " + newGameState);
         enable = newGameState == GameState.Gameplay;
     }
 
+    void OnGameStateReset() {
+        tr.emitting = false;
+        walkTr.emitting = false;
+        transform.position = RespawnPoint.Instance.GetTransform().position;
+        walkTr.emitting = true;
+
+        rb.velocity = Vector3.zero;
+        rb.gravityScale = gravScale;
+        grabbingWall = false;
+        isDashing = false;
+        canDash = true;
+        currJumps = jumps;
+        gameObject.SetActive(true);
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         feet = transform.Find("Feet");
         wallGrab = transform.Find("WallGrab");
         walkTr = transform.Find("WalkTrail").GetComponent<TrailRenderer>();
@@ -94,7 +115,7 @@ public class PlayerController : MonoBehaviour
             GameStateManager.Instance.SetState(state);
         }
 
-        bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.26f, wallLayer);
+        bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.27f, wallLayer);
         bool grounded = Physics2D.OverlapCircle(feet.position, 0.05f, groundLayer);
 
         if (enable) {
@@ -106,6 +127,7 @@ public class PlayerController : MonoBehaviour
 
             //Wall hanging
             facing = rb.velocity.x != 0 ? Mathf.Sign(rb.velocity.x) : facing;
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x)*facing, transform.localScale.y, transform.localScale.z);
             if (EnableWallClimb) {
                 if (!grabbingWall && againstWall && Time.time - lastGrab > grabDelay) {
                     grabbingWall = true;
@@ -132,11 +154,13 @@ public class PlayerController : MonoBehaviour
             {
                 if (grounded || CheckCoyoteTime()) {
                     rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                    anim.SetTrigger("Jump");
                     lastJump = 0f;
                     lastGrounded = 0f;
                     currJumps = EnableDoubleJump ? jumps - 1 : 0;
                 } else if (currJumps > 0) {
                     rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                    anim.SetTrigger("Jump");
                     lastJump = 0f;
                     currJumps = currJumps - 1;
                 } else if (Input.GetButtonDown("Jump")) {
@@ -147,6 +171,7 @@ public class PlayerController : MonoBehaviour
             //dashing
             if (EnableDashing && Input.GetButtonDown("Dash") && canDash)
             {
+                anim.SetTrigger("Dash");
                 StartCoroutine(Dash());
             }
         }
@@ -170,6 +195,13 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal") * accelSpeed*Time.deltaTime, 0));
         }
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
+
+        if (anim != null && !isDashing) {
+            anim.SetBool("Moving", Input.GetAxisRaw("Horizontal") != 0);
+            anim.SetBool("TouchingGround", grounded);
+            anim.SetBool("WallHang", grabbingWall);
+        }
+
     }
 
     private IEnumerator Dash()
@@ -181,9 +213,7 @@ public class PlayerController : MonoBehaviour
         float oSpeed = maxSpeed;
         maxSpeed = 24f;
         rb.gravityScale = 0f;
-        print(rb.velocity);
         rb.velocity = new Vector2(rb.velocity.x * dashingPower, 0f);
-        print(rb.velocity);
         tr.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;

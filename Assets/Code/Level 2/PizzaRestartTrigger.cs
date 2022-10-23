@@ -5,11 +5,25 @@ using UnityEngine;
 public class PizzaRestartTrigger : MonoBehaviour
 {
     Rigidbody2D rb;
+    Vector3 startPosition;
     public string DeathMessage;
-
+    void Awake() {
+        GameStateManager.Instance.OnGameStateReset += OnGameStateReset;
+    }
+    void Destroy() {
+        GameStateManager.Instance.OnGameStateReset -= OnGameStateReset;
+    }
+    void OnGameStateReset() {
+        StopAllCoroutines();
+        transform.position = startPosition;
+        rb.gravityScale = 0;
+        rb.velocity = Vector3.zero;
+        gameObject.SetActive(true);
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        startPosition = transform.position;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -24,6 +38,8 @@ public class PizzaRestartTrigger : MonoBehaviour
 
     IEnumerator DelayDestroy() {
         yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        rb.gravityScale = 0;
+        rb.velocity = Vector3.zero;
     }
 }

@@ -6,13 +6,39 @@ public class AbilityCollectibleController : MonoBehaviour
 {
     public AbilityCollectible collectible;
 
+    AudioSource audioSource;
+    public AudioClip audioClip;
+
+    bool visible = true;
+    
+    void Start() {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.CompareTag("Player")) {
+        // check player is picking up visible collectible
+        if (other.gameObject.CompareTag("Player") && visible) {
+            // set invisible
+            visible = false;
+            GetComponent<Renderer>().enabled = false;
+
+            // add to inventory
             if (InventoryManager.instance != null) {
                 InventoryManager.instance.AddItem(collectible); // for inventory
             }
+
             collectible.Use();
-            Destroy(gameObject);
+
+            // play sound and destroy
+            if (audioSource != null && audioClip != null) {
+                audioSource.PlayOneShot(audioClip);
+                DestroyAfterWait(audioClip.length);
+            }
         }
+    }
+
+    IEnumerator DestroyAfterWait(float seconds) {
+        yield return new WaitForSeconds(seconds);
+        Destroy(gameObject);
     }
 }
