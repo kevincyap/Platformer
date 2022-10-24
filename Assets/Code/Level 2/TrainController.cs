@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Train Sound from https://www.videvo.net/sound-effect/car-horn-doppler-by-pe865405/238691/
+//Bg music from https://bringtone.com/guitar-and-accordion/
+
 public class TrainController : MonoBehaviour
 {
     public int xLeft;
@@ -20,6 +23,10 @@ public class TrainController : MonoBehaviour
     public GameObject player;
     bool flashing = false;
 
+    AudioSource audioSource;
+    public float audioPlayDistance = 10f;
+    bool audioPlayed = false;
+
     void Awake() {
         GameStateManager.Instance.OnGameStateReset += OnGameStateReset;
     }
@@ -27,10 +34,7 @@ public class TrainController : MonoBehaviour
         GameStateManager.Instance.OnGameStateReset -= OnGameStateReset;
     }
     void OnGameStateReset() {
-        flashing = false;
-        transform.position = new Vector3(xRight, transform.position.y, transform.position.z);
-        moveTime = Time.time + trainDelay;
-        moving = false;
+        ResetTrain();
         if (RespawnPoint.Instance.DefaultSpawn) {
             onHold = true;
         }
@@ -38,6 +42,7 @@ public class TrainController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         moveTime = Time.time + trainDelay;
         player = GameObject.Find("Player");
     }
@@ -53,18 +58,28 @@ public class TrainController : MonoBehaviour
         }
         if (!onHold && !moving && Time.time > moveTime) {
             moving = true;
-        } 
+        }
         else if (moving) {
             transform.position += Vector3.left * speed * Time.deltaTime;
+            if (!audioPlayed) {
+                float distToPlayer = Mathf.Abs(transform.position.x - player.transform.position.x);
+                if (distToPlayer < audioPlayDistance) {
+                    audioSource.Play();
+                    audioPlayed = true;
+                }
+            }
         }
         if (transform.position.x < xLeft) {
-            flashing = false;
-            transform.position = new Vector3(xRight, transform.position.y, transform.position.z);
-            moveTime = Time.time + trainDelay;
-            moving = false;
+            ResetTrain();
         }
     }
-
+    void ResetTrain() {
+        flashing = false;
+        transform.position = new Vector3(xRight, transform.position.y, transform.position.z);
+        moveTime = Time.time + trainDelay;
+        moving = false;
+        audioPlayed = false;
+    }
     public void StartMoving(int delay = 0) {
         moveTime = Time.time + delay;
     }
