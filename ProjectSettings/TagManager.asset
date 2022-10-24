@@ -38,6 +38,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 768278717
+    locked: 0
+  - name: Building
+    uniqueID: 3287905779
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Object
+    uniqueID: 3599447343
+    locked: 0
+  - name: Player
+    uniqueID: 3214954985
+    locked: 0
+  - name: Front Object
+    uniqueID: 1738493135
     locked: 0
