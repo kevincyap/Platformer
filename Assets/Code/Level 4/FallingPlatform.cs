@@ -6,6 +6,7 @@ public class FallingPlatform : MonoBehaviour
 {
     GameObject player;
     public float delay = 1f;
+    public float fallSpeed = 0.01f;
     bool falling = false;
     GameObject parent;
     // Start is called before the first frame update
@@ -19,8 +20,8 @@ public class FallingPlatform : MonoBehaviour
     {
         if (falling)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.01f, transform.position.z);
-            parent.transform.position = new Vector3(parent.transform.position.x, parent.transform.position.y + 0.005f, parent.transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y - fallSpeed, transform.position.z);
+            parent.transform.position = new Vector3(parent.transform.position.x, parent.transform.position.y + (fallSpeed/2), parent.transform.position.z);
         }
     }
         // Update is called once per frame
