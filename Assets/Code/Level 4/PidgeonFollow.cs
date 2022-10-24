@@ -66,11 +66,9 @@ public class PidgeonFollow : MonoBehaviour
             if (transform.position.x < player.transform.position.x)
             {
                 goal = new Vector2(transform.position.x + 15, transform.position.y);
-                print(goal);
             } else
             {
                 goal = new Vector2(transform.position.x - 15, transform.position.y);
-                print(goal);
             }
         }
         if (transform.position.x > lastX.x)
@@ -81,8 +79,6 @@ public class PidgeonFollow : MonoBehaviour
             spriteRenderer.flipX = true;
         }
         lastX = new Vector2(transform.position.x, transform.position.y);
-
-        print(lastX);
     }
 
     private IEnumerator Wait()
