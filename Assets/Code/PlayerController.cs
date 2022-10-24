@@ -60,7 +60,9 @@ public class PlayerController : MonoBehaviour
 
     
     Animator anim;
-
+    AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip dashSound;
 
     void Awake()
     {
@@ -97,6 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         feet = transform.Find("Feet");
         wallGrab = transform.Find("WallGrab");
         walkTr = transform.Find("WalkTrail").GetComponent<TrailRenderer>();
@@ -139,6 +142,7 @@ public class PlayerController : MonoBehaviour
                     if (Input.GetButtonDown("Jump")) {
                         grabbingWall = false;
                         rb.velocity = new Vector2(-facing * maxSpeed * grabLaunchProp, jumpSpeed);
+                        audioSource.PlayOneShot(jumpSound);
                         lastGrab = Time.time;
                     } else {
                         rb.velocity = new Vector2(0f, 0f);
@@ -155,12 +159,14 @@ public class PlayerController : MonoBehaviour
                 if (grounded || CheckCoyoteTime()) {
                     rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                     anim.SetTrigger("Jump");
+                    audioSource.PlayOneShot(jumpSound);
                     lastJump = 0f;
                     lastGrounded = 0f;
                     currJumps = EnableDoubleJump ? jumps - 1 : 0;
                 } else if (currJumps > 0) {
                     rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
                     anim.SetTrigger("Jump");
+                    audioSource.PlayOneShot(jumpSound);
                     lastJump = 0f;
                     currJumps = currJumps - 1;
                 } else if (Input.GetButtonDown("Jump")) {
@@ -172,6 +178,7 @@ public class PlayerController : MonoBehaviour
             if (EnableDashing && Input.GetButtonDown("Dash") && canDash)
             {
                 anim.SetTrigger("Dash");
+                audioSource.PlayOneShot(dashSound);
                 StartCoroutine(Dash());
             }
         }
