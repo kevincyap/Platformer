@@ -146,10 +146,16 @@ public class PlayerController : MonoBehaviour
                         lastGrab = Time.time;
                     } else {
                         rb.velocity = new Vector2(0f, 0f);
-                    }
-                } else {
-                    rb.gravityScale = gravScale;
+                    } 
                 }
+                else if (grabbingWall)
+                {
+                    grabbingWall = false;
+                    lastGrab = Time.time;
+                }
+                else {
+                    rb.gravityScale = gravScale;
+                } 
             }
             
 
