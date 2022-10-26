@@ -82,11 +82,10 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnGameStateReset() {
+        gameObject.SetActive(false);
         tr.emitting = false;
         walkTr.emitting = false;
         transform.position = RespawnPoint.Instance.GetTransform().position;
-        walkTr.emitting = true;
-
         rb.velocity = Vector3.zero;
         rb.gravityScale = gravScale;
         grabbingWall = false;
@@ -94,6 +93,12 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         currJumps = jumps;
         gameObject.SetActive(true);
+        StartCoroutine(EnableTrail());
+    }
+
+    IEnumerator EnableTrail() {
+        yield return new WaitForSeconds(0.1f);
+        walkTr.emitting = true;
     }
     void Start()
     {
@@ -146,10 +151,16 @@ public class PlayerController : MonoBehaviour
                         lastGrab = Time.time;
                     } else {
                         rb.velocity = new Vector2(0f, 0f);
-                    }
-                } else {
-                    rb.gravityScale = gravScale;
+                    } 
                 }
+                else if (grabbingWall)
+                {
+                    grabbingWall = false;
+                    lastGrab = Time.time;
+                }
+                else {
+                    rb.gravityScale = gravScale;
+                } 
             }
             
 
