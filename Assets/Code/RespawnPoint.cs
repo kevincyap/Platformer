@@ -8,7 +8,6 @@ public class RespawnPoint : MonoBehaviour
     GameObject player;
     GameObject bowl;
     public bool DefaultSpawn = false;
-    bool active = false;
 
 
     void Start() {
