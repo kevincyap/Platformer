@@ -53,10 +53,9 @@ public class PlayerController : MonoBehaviour
     float grabDelay = 0.2f;
     float grabLaunchProp = 0.7f;
 
-    bool enable = true;
+    bool enable = false;
 
     public float velocityX; 
-
 
     
     Animator anim;
@@ -116,6 +115,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        enable = GameStateManager.Instance.CurrentGameState == GameState.Gameplay;
         velocityX = rb.velocity.x;
         if (Input.GetKeyDown(KeyCode.Escape) && GameStateManager.Instance.CurrentGameState != GameState.Cutscene)
         {
@@ -124,8 +124,7 @@ public class PlayerController : MonoBehaviour
         }
 
         bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.27f, wallLayer);
-        bool grounded = Physics2D.OverlapCircle(feet.position, 0.05f, groundLayer);
-
+        bool grounded = Physics2D.OverlapCircle(feet.position, 0.1f, groundLayer);
         if (enable) {
             if (isDashing)
             {
@@ -134,7 +133,7 @@ public class PlayerController : MonoBehaviour
             
 
             //Wall hanging
-            facing = rb.velocity.x != 0 ? Mathf.Sign(rb.velocity.x) : facing;
+            facing = Mathf.Abs(rb.velocity.x) >= 0.5f ? Mathf.Sign(rb.velocity.x) : facing;
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x)*facing, transform.localScale.y, transform.localScale.z);
             if (EnableWallClimb) {
                 if (!grabbingWall && againstWall && Time.time - lastGrab > grabDelay) {
@@ -215,7 +214,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
 
         if (anim != null && !isDashing) {
-            anim.SetBool("Moving", Input.GetAxisRaw("Horizontal") != 0 && enable);
+            anim.SetBool("Moving", Mathf.Abs(rb.velocity.x) >= 1f && Input.GetAxisRaw("Horizontal") != 0 && enable);
             anim.SetBool("TouchingGround", grounded);
             anim.SetBool("WallHang", grabbingWall);
         }

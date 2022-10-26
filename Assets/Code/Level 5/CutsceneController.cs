@@ -9,6 +9,18 @@ public class CutsceneController : MonoBehaviour
     public GameObject bowl;
     public GameObject bowl2;
     public GameObject winScreen;
+    public GameObject badEnding;
+
+
+    void Start() {
+        GameStateManager.Instance.SetState(GameState.Cutscene);
+        StartCoroutine(delayStart());
+    }
+    IEnumerator delayStart() {
+        yield return new WaitForSeconds(1.5f);
+        GameStateManager.Instance.SetState(GameState.Gameplay);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -19,6 +31,10 @@ public class CutsceneController : MonoBehaviour
     }
     public void FeedCoco() {
         StartCoroutine(PlayPart2());
+    }
+    public void DontFeedCoco() {
+        canvas.SetActive(false);
+        badEnding.SetActive(true);
     }
     IEnumerator PlayPart2() {
         canvas.SetActive(false);
