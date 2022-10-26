@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         velocityX = rb.velocity.x;
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && GameStateManager.Instance.CurrentGameState != GameState.Cutscene)
         {
             GameState state = GameStateManager.Instance.CurrentGameState == GameState.Gameplay ? GameState.Paused : GameState.Gameplay;
             GameStateManager.Instance.SetState(state);
@@ -215,7 +215,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
 
         if (anim != null && !isDashing) {
-            anim.SetBool("Moving", Input.GetAxisRaw("Horizontal") != 0);
+            anim.SetBool("Moving", Input.GetAxisRaw("Horizontal") != 0 && enable);
             anim.SetBool("TouchingGround", grounded);
             anim.SetBool("WallHang", grabbingWall);
         }
