@@ -7733,9 +7733,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 15c09a6a0f316684bb6b3d0cfbb52af7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 12cfff1c5a093f647bb9ba4392fb02df, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -10687,6 +10687,7 @@ MonoBehaviour:
   xRight: 200
   y: 0
   width: 0
+  forL1: 0
 --- !u!1001 &1840798653443127250
 PrefabInstance:
   m_ObjectHideFlags: 0

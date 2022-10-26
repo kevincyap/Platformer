@@ -8,7 +8,9 @@ public class ItemController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Player")) {
-            InventoryManager.instance.AddItem(item);
+            if (InventoryManager.instance != null) {
+                InventoryManager.instance.AddItem(item);
+            }
             Destroy(gameObject);
         }
     }

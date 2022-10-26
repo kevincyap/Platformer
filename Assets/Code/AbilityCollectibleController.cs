@@ -26,6 +26,9 @@ public class AbilityCollectibleController : MonoBehaviour
             if (InventoryManager.instance != null) {
                 InventoryManager.instance.AddItem(collectible); // for inventory
             }
+            if (CollectibleManager.instance != null) {
+                CollectibleManager.instance.AddItem(collectible);
+            }
 
             collectible.Use();
 
