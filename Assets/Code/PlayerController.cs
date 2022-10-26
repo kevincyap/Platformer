@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     bool enable = false;
 
+    public bool disableJump = false;
+
     public float velocityX; 
 
     
@@ -164,7 +166,7 @@ public class PlayerController : MonoBehaviour
             
 
             //Jumping
-            if ((Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
+            if (!disableJump && (Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
             {
                 if (grounded || CheckCoyoteTime()) {
                     rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
