@@ -13,6 +13,7 @@ public class PidgeonFollow : MonoBehaviour
     private float distanceY;
     public bool attacking = false;
     public float attackCD;
+    private bool canFly = true;
     public Vector2 lastX;
     GameObject player;
     Vector2 goal;
@@ -60,14 +61,14 @@ public class PidgeonFollow : MonoBehaviour
             print("chasing\n");
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
-        if (attacking == false && distance < 5 && distanceY > 1)
+        if (attacking == false && distance < 5 && distanceY > 0.1)
         {
             print("adjusting\n");
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, player.transform.position.y), speed * Time.deltaTime);
         }
-        if (attacking == false && distance < 5 && distanceY < 1)
+        if (attacking == false && distance < 5 && distanceY < 0.1 && canFly == true)
         {
-            StartCoroutine(Wait());
+            //StartCoroutine(Wait());
             attacking = true;
             if (transform.position.x < player.transform.position.x)
             {
@@ -89,6 +90,8 @@ public class PidgeonFollow : MonoBehaviour
 
     private IEnumerator Wait()
     {
+        canFly = false;
         yield return new WaitForSeconds(attackCD);
+        canFly = true;
     }
 }
