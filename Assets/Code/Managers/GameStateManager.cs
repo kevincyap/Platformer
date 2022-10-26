@@ -16,7 +16,7 @@ public class GameStateManager
         }
     }
  
-    public GameState CurrentGameState { get; private set; }
+    public GameState CurrentGameState { get; private set; } = GameState.Cutscene;
     public string DeathMessage { get; private set; }
 
     public delegate void GameStateChangeHandler(GameState newGameState);
