@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseScreen : MonoBehaviour
 {
     GameObject pauseMenu;
     GameObject optionsMenu;
+    public GameObject pauseSelected, optionSelected, optionsClose;
 
     void Awake()
     {
@@ -27,6 +29,8 @@ public class PauseScreen : MonoBehaviour
         {
             pauseMenu.SetActive(true);
             optionsMenu.SetActive(false);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(pauseSelected);
         }
         else {
             pauseMenu.SetActive(false);
@@ -41,8 +45,12 @@ public class PauseScreen : MonoBehaviour
     }
     public void handleOpenOptions() {
         optionsMenu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionSelected);
     }
     public void handleCloseOptions() {
         optionsMenu.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionsClose);
     }
 }

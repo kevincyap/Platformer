@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class DeathScreen : MonoBehaviour
 {
     GameObject canvas;
     TextMeshProUGUI message;
+    public GameObject deathMenu;
     string defaultMessage = "Coco is now free to terrorize the city. The city burns at his mercy.";
     void Awake()
     {
@@ -35,6 +37,8 @@ public class DeathScreen : MonoBehaviour
                 message.text = defaultMessage;
             }
             canvas.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(deathMenu);
         }
         else {
             canvas.SetActive(false);
