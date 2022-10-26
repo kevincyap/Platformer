@@ -3,5 +3,6 @@ public enum GameState
     Gameplay,
     Inventory,
     Dead,
-    Paused
+    Paused,
+    Cutscene
 }
