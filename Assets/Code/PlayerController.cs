@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
                     rb.gravityScale = 0f;
                     rb.velocity = new Vector2(0f, 0f);
                 }
-                if (grabbingWall)
+                if (grabbingWall && againstWall)
                 {
                     if (Input.GetButtonDown("Jump")) {
                         grabbingWall = false;
