@@ -38,6 +38,9 @@ public class PidgeonFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print("attackin" + attacking + "\n");
+        //GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         if (attacking)
         {
             transform.position = Vector2.MoveTowards(transform.position, goal, attackSpeed * Time.deltaTime);
@@ -50,13 +53,16 @@ public class PidgeonFollow : MonoBehaviour
         distanceY = Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(transform.position.x, player.transform.position.y));
         if (distance > 50)
         {
+            print("teleporting");
             transform.position = new Vector2(player.transform.position.x-15, player.transform.position.y - 15);
         }
         if (attacking == false && distance > 5) {
+            print("chasing\n");
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
         if (attacking == false && distance < 5 && distanceY > 1)
         {
+            print("adjusting\n");
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, player.transform.position.y), speed * Time.deltaTime);
         }
         if (attacking == false && distance < 5 && distanceY < 1)
