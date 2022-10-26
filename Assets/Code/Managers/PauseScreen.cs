@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseScreen : MonoBehaviour
 {
-    GameObject canvas;
+    GameObject pauseMenu;
+    GameObject optionsMenu;
 
     void Awake()
     {
@@ -17,23 +18,31 @@ public class PauseScreen : MonoBehaviour
     }
     void Start()
     {
-        canvas = transform.Find("Canvas").gameObject;
+        pauseMenu = transform.Find("PauseMenu").gameObject;
+        optionsMenu = transform.Find("OptionsMenu").gameObject;
     }
     void OnGameStateChanged(GameState newGameState)
     {
         if (newGameState == GameState.Paused)
         {
-            canvas.SetActive(true);
+            pauseMenu.SetActive(true);
+            optionsMenu.SetActive(false);
         }
         else {
-            canvas.SetActive(false);
+            pauseMenu.SetActive(false);
+            optionsMenu.SetActive(false);
         }
     }
     public void handleRestart() {
-        GameStateManager.Instance.SetState(GameState.Gameplay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameStateManager.Instance.TriggerRestart();
     }
     public void handleQuit() {
         Application.Quit();
+    }
+    public void handleOpenOptions() {
+        optionsMenu.SetActive(true);
+    }
+    public void handleCloseOptions() {
+        optionsMenu.SetActive(false);
     }
 }
