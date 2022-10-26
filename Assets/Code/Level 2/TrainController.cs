@@ -30,7 +30,7 @@ public class TrainController : MonoBehaviour
     void Awake() {
         GameStateManager.Instance.OnGameStateReset += OnGameStateReset;
     }
-    void Destroy() {
+    void OnDestroy() {
         GameStateManager.Instance.OnGameStateReset -= OnGameStateReset;
     }
     void OnGameStateReset() {
