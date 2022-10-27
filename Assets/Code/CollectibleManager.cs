@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class CollectibleManager : MonoBehaviour
 {
-    public static CollectibleManager instance;
+    // public static CollectibleManager instance;
 
     public List<AbilityCollectible> collectibles = new List<AbilityCollectible>();
 
@@ -21,9 +21,14 @@ public class CollectibleManager : MonoBehaviour
     public GameObject ButtonNotif;
 
 
+    public AbilityCollectible boots;
+    public AbilityCollectible gloves;
+    public AbilityCollectible wingedBoots;
+
+
     // Start is called before the first frame update
     void Start() {
-        instance = this;
+        // instance = this;
 
         if (CollectiblesList != null) {
             CollectiblesListTrans = CollectiblesList.transform;
@@ -33,7 +38,9 @@ public class CollectibleManager : MonoBehaviour
     }
 
     public void AddItem(AbilityCollectible collectible) {
-        collectibles.Add(collectible);
+        if (!collectibles.Contains(collectible)) {
+            collectibles.Add(collectible);
+        }
 
         if (CollectiblesPanel.activeSelf) {
             ListItems();
@@ -75,8 +82,35 @@ public class CollectibleManager : MonoBehaviour
         SetInventory(!CollectiblesPanel.activeSelf);
     }
 
+    public void SetInventoryBasedOnPlayer(PlayerController player) {
+        collectibles.Clear();
+
+        Debug.Log("Checking abilities...");
+        Debug.Log("Enabled Dashing: " + player.EnableDashing);
+        Debug.Log("Enabled Wall Climbing: " + player.EnableWallClimb);
+        Debug.Log("Enabled Dashing: " + player.EnableDoubleJump);
+
+        if (player.EnableDashing) {
+            Debug.Log("Added boots");
+            collectibles.Add(boots);
+        }
+
+        if (player.EnableWallClimb) {
+            Debug.Log("Added gloves");
+            collectibles.Add(gloves);
+        }
+        if (player.EnableDoubleJump) {
+            Debug.Log("Added winged boots");
+            collectibles.Add(wingedBoots);
+        }
+
+        if (CollectiblesPanel.activeSelf) {
+            ListItems();
+        }
+    }
+
     void LateUpdate() {
-        if(Input.GetButtonDown("Interact")) {
+        if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Inventory")) { // Joystick Button 2
             ToggleInventory();
         } else if (Input.GetButtonDown("Cancel") && CollectiblesPanel.activeSelf) {
             SetInventory(false);

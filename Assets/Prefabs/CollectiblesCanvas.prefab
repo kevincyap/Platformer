@@ -396,7 +396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 36.768, y: -48.1}
+  m_AnchoredPosition: {x: 43.6, y: -48.1}
   m_SizeDelta: {x: 73.536, y: 79.8837}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &410847422758380104
@@ -569,8 +569,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.0000009536743, y: -58.200005}
-  m_SizeDelta: {x: 71.1871, y: 28.7572}
+  m_AnchoredPosition: {x: 0.0000014305, y: -57.7}
+  m_SizeDelta: {x: 80.4882, y: 28.7572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &410847423252336077
 CanvasRenderer:
@@ -602,7 +602,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Inventory
 
-    (E)'
+    (E/Button X)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a04303c5a642fd49a1b5398fee96f0e, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: f7970632f8f3f234d8269d0f94f35837, type: 2}
@@ -788,7 +788,7 @@ GameObject:
   - component: {fileID: 8835168723561161878}
   m_Layer: 5
   m_Name: Collectibles Manager
-  m_TagString: Untagged
+  m_TagString: CollectibleManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -833,6 +833,9 @@ MonoBehaviour:
   CollectibleSlotPrefab: {fileID: 1281192295496481944, guid: 9d8007008644d7344a8c6eab267083b1, type: 3}
   CollectiblesButton: {fileID: 410847422033856262}
   ButtonNotif: {fileID: 410847422758380104}
+  boots: {fileID: 11400000, guid: 8c7818f63fd9bc941857b97d58513a9e, type: 2}
+  gloves: {fileID: 11400000, guid: b2e3a401aeb3d9146b6950594f16c586, type: 2}
+  wingedBoots: {fileID: 11400000, guid: 5c6bd4ba63ff5ea4b8f0a289051dcbd7, type: 2}
 --- !u!1 &8835168723589178582
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +848,6 @@ GameObject:
   - component: {fileID: 8835168723589178587}
   - component: {fileID: 8835168723589178584}
   - component: {fileID: 8835168723589178585}
-  - component: {fileID: 1135993273942275120}
   m_Layer: 5
   m_Name: CollectiblesCanvas
   m_TagString: Untagged
@@ -935,18 +937,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1135993273942275120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8835168723589178582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 345b530dbee3c414993c889bd8065fd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &410847421781088270
 PrefabInstance:
   m_ObjectHideFlags: 0
