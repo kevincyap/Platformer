@@ -112,7 +112,7 @@ public class CollectibleManager : MonoBehaviour
     void LateUpdate() {
         if(Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Inventory")) { // Joystick Button 2
             ToggleInventory();
-        } else if (Input.GetKeyDown(KeyCode.Escape) && CollectiblesPanel.activeSelf) {
+        } else if (Input.GetButtonDown("Cancel") && CollectiblesPanel.activeSelf) {
             SetInventory(false);
         }
     }
