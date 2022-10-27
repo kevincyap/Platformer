@@ -113,6 +113,10 @@ public class PlayerController : MonoBehaviour
         wallLayer = LayerMask.GetMask("Wall");
 
         gravScale = rb.gravityScale;
+
+        // CollectibleManager.instance.SetInventoryBasedOnPlayer(this);
+        CollectibleManager collectibleManager = GameObject.FindGameObjectWithTag("CollectibleManager").GetComponent<CollectibleManager>();
+        collectibleManager.SetInventoryBasedOnPlayer(this);
     }
 
     void Update()

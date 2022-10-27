@@ -195,7 +195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902543447642828436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.008, y: -0.0943, z: 0}
+  m_LocalPosition: {x: 0.008, y: -0.105, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -324,6 +324,7 @@ MonoBehaviour:
   walkTr: {fileID: 0}
   feet: {fileID: 902543447642828435}
   wallGrab: {fileID: 902543447058207717}
+  disableJump: 0
   velocityX: 0
   jumpSound: {fileID: 8300000, guid: 6221e1a93f8f88b4a888ec48ffa46ae8, type: 3}
   dashSound: {fileID: 8300000, guid: 5d782cbf7f4ff514fb9eb6c187f31424, type: 3}
