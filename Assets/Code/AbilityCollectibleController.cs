@@ -10,9 +10,12 @@ public class AbilityCollectibleController : MonoBehaviour
     public AudioClip audioClip;
 
     bool visible = true;
+
+    CollectibleManager collectibleManager;
     
     void Start() {
         audioSource = GetComponent<AudioSource>();
+        collectibleManager = GameObject.FindGameObjectWithTag("CollectibleManager").GetComponent<CollectibleManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -26,8 +29,13 @@ public class AbilityCollectibleController : MonoBehaviour
             if (InventoryManager.instance != null) {
                 InventoryManager.instance.AddItem(collectible); // for inventory
             }
+            /*
             if (CollectibleManager.instance != null) {
                 CollectibleManager.instance.AddItem(collectible);
+            }
+            */
+            if (collectibleManager != null) {
+                collectibleManager.AddItem(collectible);
             }
 
             collectible.Use();

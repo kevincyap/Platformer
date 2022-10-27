@@ -41,6 +41,7 @@ public class FallingPlatform : MonoBehaviour
             {
                 falling = false;
                 timer = 5f;
+                delay = idelay;
                 parent.transform.position = new Vector3(parentInfo.x, parentInfo.y + 20, parent.transform.position.z);
                 transform.position = new Vector3(platInfo.x, platInfo.y + 20, transform.position.z);
                 respawning = true;
@@ -53,7 +54,6 @@ public class FallingPlatform : MonoBehaviour
             if (parent.transform.position.y <= parentInfo.y) {
                 respawning = false;
                 timer = 5f;
-                delay = idelay;
             }
         }
     }
