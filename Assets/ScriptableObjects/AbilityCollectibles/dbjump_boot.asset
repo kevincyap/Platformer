@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: dbjump_boot
   itemName: Winged Boots
-  description: Upgrade to the original boots. The wings grants you the ability to
-    jump higher! Press SPACE twice to double jump!
+  description: The wings grants you the ability to reach new heights! Press SPACE
+    (A on XBOX Controller) twice to double jump!
   sprite: {fileID: 21300000, guid: 8678ebe9373a7294994c48223e48357d, type: 3}
   audioClip: {fileID: 0}
   enableAbility: 2
