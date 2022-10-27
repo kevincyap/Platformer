@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CutsceneController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CutsceneController : MonoBehaviour
     public GameObject bowl2;
     public GameObject winScreen;
     public GameObject badEnding;
+    public GameObject feedChoice, goodMenu, badMenu;
 
 
     void Start() {
@@ -35,6 +37,8 @@ public class CutsceneController : MonoBehaviour
     public void DontFeedCoco() {
         canvas.SetActive(false);
         badEnding.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(badMenu);
     }
     IEnumerator PlayPart2() {
         canvas.SetActive(false);
@@ -42,6 +46,8 @@ public class CutsceneController : MonoBehaviour
         bowl2.SetActive(true);
         yield return new WaitForSeconds(1f);
         winScreen.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(goodMenu);
     }
 
     IEnumerator PlayCutscene() {
@@ -50,5 +56,7 @@ public class CutsceneController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         bowl.SetActive(true);
         canvas.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(feedChoice);
     }
 }
