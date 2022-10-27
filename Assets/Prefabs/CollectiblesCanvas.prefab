@@ -396,7 +396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 36.768, y: -48.1}
+  m_AnchoredPosition: {x: 43.6, y: -48.1}
   m_SizeDelta: {x: 73.536, y: 79.8837}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &410847422758380104
@@ -569,8 +569,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.0000009536743, y: -58.200005}
-  m_SizeDelta: {x: 71.1871, y: 28.7572}
+  m_AnchoredPosition: {x: 0.0000014305, y: -57.7}
+  m_SizeDelta: {x: 80.4882, y: 28.7572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &410847423252336077
 CanvasRenderer:
@@ -602,7 +602,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Inventory
 
-    (E)'
+    (E/Button X)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a04303c5a642fd49a1b5398fee96f0e, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: f7970632f8f3f234d8269d0f94f35837, type: 2}
