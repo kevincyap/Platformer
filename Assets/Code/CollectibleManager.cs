@@ -76,9 +76,9 @@ public class CollectibleManager : MonoBehaviour
     }
 
     void LateUpdate() {
-        if(Input.GetKeyDown(KeyCode.E)) {
+        if(Input.GetButtonDown("Interact")) {
             ToggleInventory();
-        } else if (Input.GetKeyDown(KeyCode.Escape) && CollectiblesPanel.activeSelf) {
+        } else if (Input.GetButtonDown("Cancel") && CollectiblesPanel.activeSelf) {
             SetInventory(false);
         }
     }
