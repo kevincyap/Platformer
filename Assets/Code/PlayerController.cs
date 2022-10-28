@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     bool enable = false;
 
     public bool disableJump = false;
-    
+
     public float velocityX; 
 
     
@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
 
     void OnGameStateChanged(GameState newGameState)
     {
+        print("hi");
         enable = newGameState == GameState.Gameplay;
     }
 

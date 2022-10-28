@@ -8,6 +8,7 @@ public class MovingPlatform : MonoBehaviour
     public int startPoint;
     public Transform[] points;
     private int i;
+    bool waiting = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,18 +18,24 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(transform.position, points[i].position) < 0.02f)
+        if (Vector2.Distance(transform.position, points[i].position) < 0.02f && !waiting)
         {
             i++;
             if (i == points.Length)
             {
                 i = 0;
             }
+            waiting = true;
+            StartCoroutine(Wait());
         }
-
-        transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
+        if (!waiting) {
+            transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
+        }
     }
-
+    IEnumerator Wait() {
+        yield return new WaitForSeconds(3f);
+        waiting = false;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         collision.transform.SetParent(transform);

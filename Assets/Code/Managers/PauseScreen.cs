@@ -25,13 +25,6 @@ public class PauseScreen : MonoBehaviour
     }
 
     void Update() {
-        if (gameObject.activeSelf == true && Input.GetButtonDown("Dash")) {
-            if (optionsMenu.activeSelf == true) {
-                handleCloseOptions();
-            } else {
-                StartCoroutine(delayExit());
-            }
-        }
     }
     IEnumerator delayExit() {
         yield return new WaitForSeconds(0.3f);
