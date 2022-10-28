@@ -117,8 +117,11 @@ public class PlayerController : MonoBehaviour
         gravScale = rb.gravityScale;
 
         // CollectibleManager.instance.SetInventoryBasedOnPlayer(this);
-        CollectibleManager collectibleManager = GameObject.FindGameObjectWithTag("CollectibleManager").GetComponent<CollectibleManager>();
-        collectibleManager.SetInventoryBasedOnPlayer(this);
+        GameObject collectibleManagerObj = GameObject.FindGameObjectWithTag("CollectibleManager");
+        if (collectibleManagerObj != null) {
+            CollectibleManager collectibleManager = collectibleManagerObj.GetComponent<CollectibleManager>();
+            collectibleManager.SetInventoryBasedOnPlayer(this);
+        }
     }
 
     void Update()
@@ -126,7 +129,7 @@ public class PlayerController : MonoBehaviour
         bool justJumped = false;
         enable = GameStateManager.Instance.CurrentGameState == GameState.Gameplay;
         velocityX = rb.velocity.x;
-        if (Input.GetKeyDown(KeyCode.Escape) && GameStateManager.Instance.CurrentGameState != GameState.Cutscene)
+        if (Input.GetButtonDown("Pause") && GameStateManager.Instance.CurrentGameState != GameState.Cutscene)
         {
             GameState state = GameStateManager.Instance.CurrentGameState == GameState.Gameplay ? GameState.Paused : GameState.Gameplay;
             GameStateManager.Instance.SetState(state);
