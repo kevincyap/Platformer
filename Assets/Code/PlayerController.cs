@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     //Jumping
     [Header("Basic Movement")]
     public float maxSpeed;
+    float maxSpeedSave;
     public float accelSpeed;
     public float deaccelSpeed;
     public float deaccelAir;
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         canDash = true;
         currJumps = jumps;
+        maxSpeed = maxSpeedSave;
         gameObject.SetActive(true);
         StartCoroutine(EnableTrail());
     }
@@ -111,7 +113,7 @@ public class PlayerController : MonoBehaviour
         walkTr = transform.Find("WalkTrail").GetComponent<TrailRenderer>();
         groundLayer = LayerMask.GetMask("Ground");
         wallLayer = LayerMask.GetMask("Wall");
-
+        maxSpeedSave = maxSpeed;
         gravScale = rb.gravityScale;
 
         // CollectibleManager.instance.SetInventoryBasedOnPlayer(this);
@@ -121,6 +123,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        bool justJumped = false;
         enable = GameStateManager.Instance.CurrentGameState == GameState.Gameplay;
         velocityX = rb.velocity.x;
         if (Input.GetKeyDown(KeyCode.Escape) && GameStateManager.Instance.CurrentGameState != GameState.Cutscene)
@@ -130,7 +133,7 @@ public class PlayerController : MonoBehaviour
         }
 
         bool againstWall = Physics2D.OverlapCircle(wallGrab.position, 0.27f, wallLayer);
-        bool grounded = Physics2D.OverlapCircle(feet.position, 0.1f, groundLayer);
+        bool grounded = Physics2D.OverlapCircle(feet.position, 0.1f, groundLayer) || Physics2D.OverlapCircle(feet.position, 0.1f, wallLayer);
         if (enable) {
             if (isDashing)
             {
@@ -153,6 +156,8 @@ public class PlayerController : MonoBehaviour
                         grabbingWall = false;
                         rb.velocity = new Vector2(-facing * maxSpeed * grabLaunchProp, jumpSpeed);
                         audioSource.PlayOneShot(jumpSound);
+                        justJumped = true;
+                        currJumps = EnableDoubleJump ? jumps - 1 : 0;
                         lastGrab = Time.time;
                     } else {
                         rb.velocity = new Vector2(0f, 0f);
@@ -168,9 +173,8 @@ public class PlayerController : MonoBehaviour
                 } 
             }
             
-
             //Jumping
-            if (!disableJump && (Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
+            if (!justJumped && !disableJump && (Input.GetButtonDown("Jump") || CheckJumpTolerance()) && !grabbingWall)
             {
                 if (grounded || CheckCoyoteTime()) {
                     rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
