@@ -22,6 +22,10 @@ public class FallingPlatformV2 : MonoBehaviour
     Collider2D triggerCollider;
     Collider2D playerCollider;
 
+
+    AudioSource audioSource;
+    public AudioClip creakAudio;
+
     // Start is called before the first frame update
     void Start() {
         parentInitPos = parent.transform.position;
@@ -32,6 +36,8 @@ public class FallingPlatformV2 : MonoBehaviour
 
         triggerCollider = trigger.GetComponent<Collider2D>();
         playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -46,6 +52,10 @@ public class FallingPlatformV2 : MonoBehaviour
     }
 
     IEnumerator Fall(float delay, float fallTime) {
+        if (audioSource != null && creakAudio != null) {
+            audioSource.PlayOneShot(creakAudio);
+        }
+
         yield return new WaitForSeconds(delay);
 
         platformRB.bodyType = RigidbodyType2D.Dynamic;
