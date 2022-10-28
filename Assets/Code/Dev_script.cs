@@ -7,7 +7,10 @@ public class Dev_script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(delayStart());
+        if (Application.isEditor) {
+            Debug.Log("Running in editor");
+            StartCoroutine(delayStart());
+        }
     }
     IEnumerator delayStart() {
         yield return new WaitForSeconds(1);

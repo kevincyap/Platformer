@@ -23,6 +23,17 @@ public class PauseScreen : MonoBehaviour
         pauseMenu = transform.Find("PauseMenu").gameObject;
         optionsMenu = transform.Find("OptionsMenu").gameObject;
     }
+
+    void Update() {
+        if (gameObject.activeSelf == true && Input.GetButtonDown("Dash")) {
+            if (optionsMenu.activeSelf == true) {
+                handleCloseOptions();
+            } else {
+                GameStateManager.Instance.SetState(GameState.Gameplay);
+            }
+        }
+    }
+
     void OnGameStateChanged(GameState newGameState)
     {
         if (newGameState == GameState.Paused)

@@ -173,7 +173,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.8}
   m_SpriteTilingProperty:
@@ -258,7 +258,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 5061c4dfe9c21aa479033f5920721dad, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.264
   m_Pitch: 1
   Loop: 0
   Mute: 0

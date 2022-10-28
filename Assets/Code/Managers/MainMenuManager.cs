@@ -19,6 +19,12 @@ public class MainMenuManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(startMenu);
     }
+
+    void Update() {
+        if (Input.GetButtonDown("Dash") && optionsMenu.activeSelf == true) {
+            handleCloseOptions();
+        }
+    }
     public void handleStart() {
         mainMenu.SetActive(false);
         optionsMenu.SetActive(false);
