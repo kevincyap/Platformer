@@ -13,16 +13,6 @@ public class CutsceneController : MonoBehaviour
     public GameObject badEnding;
     public GameObject feedChoice, goodMenu, badMenu;
 
-
-    void Start() {
-        GameStateManager.Instance.SetState(GameState.Cutscene);
-        StartCoroutine(delayStart());
-    }
-    IEnumerator delayStart() {
-        yield return new WaitForSeconds(1.5f);
-        GameStateManager.Instance.SetState(GameState.Gameplay);
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))

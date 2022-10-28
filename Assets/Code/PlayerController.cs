@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     bool enable = false;
 
     public bool disableJump = false;
-
+    
     public float velocityX; 
 
     
@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deaccelAir * Time.deltaTime), rb.velocity.y);
             }
         } else if (!grabbingWall && enable){
-            if (Input.GetAxisRaw("Horizontal") != Mathf.Sign(rb.velocity.x)) {
+            if (Input.GetAxisRaw("Horizontal") == -Mathf.Sign(rb.velocity.x)) {
                 rb.velocity = new Vector2(0, rb.velocity.y);
             }
             rb.AddForce(new Vector2(Input.GetAxisRaw("Horizontal") * accelSpeed*Time.deltaTime, 0));

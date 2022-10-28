@@ -29,11 +29,14 @@ public class PauseScreen : MonoBehaviour
             if (optionsMenu.activeSelf == true) {
                 handleCloseOptions();
             } else {
-                GameStateManager.Instance.SetState(GameState.Gameplay);
+                StartCoroutine(delayExit());
             }
         }
     }
-
+    IEnumerator delayExit() {
+        yield return new WaitForSeconds(0.3f);
+        GameStateManager.Instance.SetState(GameState.Gameplay);
+    }
     void OnGameStateChanged(GameState newGameState)
     {
         if (newGameState == GameState.Paused)
