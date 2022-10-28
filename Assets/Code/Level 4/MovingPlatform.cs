@@ -33,7 +33,7 @@ public class MovingPlatform : MonoBehaviour
         }
     }
     IEnumerator Wait() {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         waiting = false;
     }
     private void OnCollisionEnter2D(Collision2D collision)
