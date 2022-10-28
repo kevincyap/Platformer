@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     //Jumping
     [Header("Basic Movement")]
     public float maxSpeed;
+    float maxSpeedSave;
     public float accelSpeed;
     public float deaccelSpeed;
     public float deaccelAir;
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         canDash = true;
         currJumps = jumps;
+        maxSpeed = maxSpeedSave;
         gameObject.SetActive(true);
         StartCoroutine(EnableTrail());
     }
@@ -111,7 +113,7 @@ public class PlayerController : MonoBehaviour
         walkTr = transform.Find("WalkTrail").GetComponent<TrailRenderer>();
         groundLayer = LayerMask.GetMask("Ground");
         wallLayer = LayerMask.GetMask("Wall");
-
+        maxSpeedSave = maxSpeed;
         gravScale = rb.gravityScale;
 
         // CollectibleManager.instance.SetInventoryBasedOnPlayer(this);
