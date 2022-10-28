@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: dash_boot
   itemName: Boots
-  description: Boots that grants you a short boost. Press SHIFT to dash!
+  description: Boots that grants you a short boost. Press SHIFT (B on XBOX Controller)
+    to dash!
   sprite: {fileID: 21300000, guid: ec06ee9b4a7a22347bb75a61815e1a38, type: 3}
   audioClip: {fileID: 0}
   enableAbility: 0
